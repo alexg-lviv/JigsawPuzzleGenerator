@@ -1,12 +1,9 @@
 from skimage.segmentation import slic
 from skimage.segmentation import mark_boundaries
-import skimage.segmentation as seg
 import skimage.measure as measure
 from skimage.util import img_as_float
 from PIL import Image
 import numpy as np
-import cv2
-from DataStructures.Point import Point, ApproxPoint
 from DataStructures.Segments.MultipointSegment import MultipointSegment
 
 
