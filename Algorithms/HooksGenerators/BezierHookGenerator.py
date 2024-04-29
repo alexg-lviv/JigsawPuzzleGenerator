@@ -78,12 +78,14 @@ class BezierHooksGenerator(HooksGenerator):
             return edge
 
         point_a, point_b = edge.point_a, edge.point_b
+        m = point_a.mid_point(point_b)
 
         d = point_b - point_a
         dist = edge.length()
         actual_dist = edge.length()
         angle = np.arctan2(d.y, d.x)
         point_ar = point_a
+        point_br = point_b.rotate(point_ar, -angle)
 
         top_control = Point(uniform(dist * hook_wideness_range - 0.05,
                                     dist * hook_wideness_range + 0.05),
@@ -97,9 +99,11 @@ class BezierHooksGenerator(HooksGenerator):
         a, b = uniform(hook_base_point - 0.05, hook_base_point + 0.05), uniform(hook_base_point - 0.05,
                                                                                 hook_base_point + 0.05)
 
-        hook_start, hook_end = edge.get_points(a, b)
-        hook_start = hook_start.rotate(point_ar, -angle)
-        hook_end = hook_end.rotate(point_ar, -angle)
+        d = point_br - point_ar
+        hook_start = point_ar + d * a
+        hook_end = point_br - d * b
+        # hook_start = hook_start.rotate(point_ar, -angle)
+        # hook_end = hook_end.rotate(point_ar, -angle)
 
         hook_1_start_d = hook_start + left_control * uniform(0.85, 1.15)
         hook_1_end = point_ar + Point(actual_dist * 0.5,
@@ -116,7 +120,7 @@ class BezierHooksGenerator(HooksGenerator):
         points, points2 = Point.rotate_multiple_curves([points, points2],
                                                        point_ar,
                                                        angle)
-        m = points[0].mid_point(points2[-1])
+
         points, points2, is_flipped = self.process_flipping_bez(points,
                                                                 points2,
                                                                 m)

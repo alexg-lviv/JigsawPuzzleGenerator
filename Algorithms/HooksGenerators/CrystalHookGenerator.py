@@ -15,7 +15,7 @@ class CrystalHookGenerator(HooksGenerator):
     def generate_hook(self,
                       edge: Segment,
                       same_wings: bool = True,
-                      hook_base_point: float = 0.3,
+                      hooks_base_point: float = 0.3,
                       first_segment_height: float = 0.1,
                       second_segment_height: float = 0.15,
                       wing_dist: float = 0.1,
@@ -34,8 +34,8 @@ class CrystalHookGenerator(HooksGenerator):
         point_ar = point_a
         point_br = point_b.rotate(point_ar, -angle)
         points_d = point_br - point_ar
-        a, b = uniform(hook_base_point - 0.05, hook_base_point + 0.05), uniform(hook_base_point - 0.05,
-                                                                                hook_base_point + 0.05)
+        a, b = uniform(hooks_base_point - 0.05, hooks_base_point + 0.05), uniform(hooks_base_point - 0.05,
+                                                                                hooks_base_point + 0.05)
         first_seg_h = dist * uniform(first_segment_height - 0.03, first_segment_height + 0.03)
         second_seg_h = dist * uniform(second_segment_height - 0.03, second_segment_height + 0.03)
         left_wing = dist * uniform(wing_dist, wing_dist + 0.05)

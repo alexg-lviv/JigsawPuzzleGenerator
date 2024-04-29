@@ -84,7 +84,9 @@ class LineSegment(Segment):
               a: float,
               b: float,
               segments: List[Segment] = None) -> AggregateSegment:
-        p1, p2 = self.get_points(a, b)
+        d = self.point_b - self.point_a
+        p1 = self.point_a + d * a
+        p2 = self.point_b - d * b
 
         if segments is None: segments = []
         segments = [
